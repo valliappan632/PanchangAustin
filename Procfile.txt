@@ -1,1 +1,1 @@
-web: gunicorn panchangherndon:app
+web: gunicorn panchangaustin:app
