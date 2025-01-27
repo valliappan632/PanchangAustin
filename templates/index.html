@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Austin Panchang Timings - Today</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffcc66;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #e65100;
+            margin-bottom: 20px;
+        }
+
+        .time-box {
+            background-color: #ffe0b2;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .time-label {
+            font-weight: bold;
+            color: #bf360c;
+            margin-bottom: 5px;
+        }
+
+        .time-value {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Austin Panchang Timings - Today</h1>
+        <div class="time-box">
+            <div class="time-label">Sunrise:</div>
+            <div class="time-value" id="sunrise">Loading...</div>
+        </div>
+        <div class="time-box">
+            <div class="time-label">Sunset:</div>
+            <div class="time-value" id="sunset">Loading...</div>
+        </div>
+        <div class="time-box">
+            <div class="time-label">Rahu Kalam:</div>
+            <div class="time-value" id="rahu-kalam">Loading...</div>
+        </div>
+        <div class="time-box">
+            <div class="time-label">Yamagandam:</div>
+            <div class="time-value" id="yamagandam">Loading...</div>
+        </div>
+        <div class="time-box">
+            <div class="time-label">Gulikai Kalam:</div>
+            <div class="time-value" id="gulikai-kalam">Loading...</div>
+        </div>
+    </div>
+
+    <script>
+        function fetchData() {
+            fetch('/sunrise-sunset') // Fetch data from the Flask backend
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('sunrise').textContent = data['Sunrise'];
+                    document.getElementById('sunset').textContent = data['Sunset'];
+                    document.getElementById('rahu-kalam').textContent = data['Rahu Kalam'];
+                    document.getElementById('yamagandam').textContent = data['Yamagandam'];
+                    document.getElementById('gulikai-kalam').textContent = data['Gulikai Kalam'];
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    document.getElementById('sunrise').textContent = 'Error';
+                    document.getElementById('sunset').textContent = 'Error';
+                    document.getElementById('rahu-kalam').textContent = 'Error';
+                    document.getElementById('yamagandam').textContent = 'Error';
+                    document.getElementById('gulikai-kalam').textContent = 'Error';
+                });
+        }
+
+        // Initial data fetch on page load
+        fetchData();
+    </script>
+</body>
+</html>
